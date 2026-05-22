@@ -8,7 +8,7 @@ NUDM Intern Assessment 2026 — Full-stack analytics dashboard for the UPYOG mul
 |-------|-----------|
 | Frontend | React 19 + Vite, Tailwind CSS v4, Chart.js |
 | Backend | Python 3.13, FastAPI, Uvicorn |
-| AI | Google Gemini 1.5 Flash (`@google/generative-ai`) |
+| AI | Multi-provider Ensemble — Groq (Llama-3.3), Gemini 2.5 Flash, GPT-4o-mini, Claude Haiku |
 | Data | Repository Pattern — JSON fallback / PostgreSQL / Elasticsearch toggle |
 
 ---
@@ -47,7 +47,7 @@ NUDM Intern Assessment 2026 — Full-stack analytics dashboard for the UPYOG mul
 
 - Python 3.10+
 - Node.js 18+
-- A free Gemini API key from [aistudio.google.com](https://aistudio.google.com)
+- At least one AI API key (Groq is recommended — free, no billing required: [console.groq.com](https://console.groq.com/keys))
 
 ---
 
@@ -87,9 +87,9 @@ DATA_SOURCE=json
 ```bash
 cd frontend
 
-# Copy and fill in your API key
+# Copy and fill in at least one API key (Groq recommended — free)
 cp .env.example .env
-# Edit .env and set VITE_GEMINI_API_KEY=your_key_here
+# Edit .env — add VITE_GROQ_API_KEY (and optionally others)
 
 # Install dependencies
 npm install
@@ -109,7 +109,7 @@ Open `http://localhost:5173` in your browser.
 - **4 KPI Cards** — Total Registered, Approved, Rejected, Total Collection — update instantly on city filter change
 - **Tenant Filter** — "All Cities" + 10 individual cities
 - **Grouped Bar Chart** — Approved / Rejected / Pending per city (Chart.js)
-- **AI Chatbot** — Gemini 1.5 Flash with strict domain guardrails (refuses off-topic questions)
+- **AI Chatbot** — Multi-provider ensemble (Groq/Llama-3.3, Gemini 2.5 Flash, GPT-4o-mini, Claude Haiku) with strict domain guardrails and anti-jailbreak output validation
 - **Repository Pattern** — swap JSON → PostgreSQL → Elasticsearch via a single env var
 
 ---
