@@ -1,0 +1,104 @@
+Property Tax Analytics Dashboard — UPYOG Multi-Tenant Platform
+Overview
+You are required to build a Property Tax Analytics Dashboard for the UPYOG multi-tenant
+platform. The platform serves 10 Indian cities, each acting as an independent tenant. A dataset
+of 1,000 property records is provided as a JSON file. Your task is to load this data in React,
+display meaningful KPIs, and integrate an AI chat assistant that can answer questions about the
+data.
+Duration 48 Hours
+Frontend
+Backend Not required — load JSON directly in React
+AI Layer Any free API: Gemini, Claude, or OpenAI
+Submission GitHub repository link sent to HR
+The Data File (properties.json)
+A file named properties.json is provided alongside this document. It contains exactly 1,000
+property records spread across 10 Indian cities. You do not need any database or server —
+place the file inside your React project and import it directly.
+Loading the file in React:
+Place properties.json in your src/ folder and import it:
+import data from './properties.json';
+Or fetch it from the public/ folder:
+const res = await fetch('/properties.json'); const data = await res.json();
+Each record in the file contains the following fields:
+Field Type Example Description
+property_id string UPYOG-DEL-0001 Unique identifier for the property
+tenant string Delhi City name — 10 possible values
+owner_name string Ramesh Kumar Name of the property owner
+property_type string Residential
+ward string Ward A Administrative ward within the city
+Residential / Commercial / Industrial
+React (mandatory)
+NUDM Intern Assessment 2026
+Page 1 | NUDM — UPYOG Platform | Intern Assessment 2026
+area_sqft number 2400 Built-up area in square feet
+status string Approved Approved / Rejected / Pending
+annual_tax_inr number 18450.50 Annual property tax in Indian Rupees
+collection_inr number 18450.50 Amount collected (0 if status is not Approved)
+registration_date string 2022-03-15 Date of registration (YYYY-MM-DD)
+floor_count number 2 Number of floors in the building
+address string 42, Sector 12, Delhi Street address of the property
+The 10 cities (tenants) in the dataset are:
+Delhi, Mumbai, Pune, Bengaluru, Chennai, Hyderabad, Ahmedabad, Kolkata, Jaipur,
+Lucknow
+Tasks
+Task 1 — KPI Dashboard (30 points)
+Display the following four KPI cards on the dashboard. All values must update live when the
+user selects a different city from the tenant filter dropdown.
+KPI How to calculate Points
+Total Properties Registered Count all records for the selected tenant 7
+Total Properties Approved Count records where status is Approved 7
+Total Properties Rejected Count records where status is Rejected 7
+Total Collection (Rs.) Sum of collection_inr for the selected tenant 9
+Tenant filter: A dropdown listing all 10 cities plus an All Cities option. Selecting a city must
+filter the entire dashboard. This filter is worth 15 additional points.
+Task 2 — Comparison Chart (10 points)
+Include at least one chart that shows all 10 cities side by side. Recommended libraries: Recharts
+or Chart.js. Suggested chart types:
+- Bar chart showing total collection per city (recommended)
+- Pie or donut chart showing share of properties per city
+- Grouped bar chart showing Approved vs Rejected vs Pending per city (bonus)
+Task 3 — AI Chat Assistant (25 points)
+Add a chat box to your dashboard. The user types a question in plain English and receives an
+answer about the property data. You do not need to train any model — use a free API.
+Page 2 | NUDM — UPYOG Platform | Intern Assessment 2026
+Approach:
+1. Compute a summary of the data (totals per city, top collector, etc.).
+2. When the user asks a question, send it to the AI API along with the summary as context.
+3. Display the AI response in a chat-style UI.
+API Free tier URL
+Google Gemini Generous free quota (gemini-1.5-flash) aistudio.google.com
+Anthropic Claude Free trial credits console.anthropic.com
+OpenAI Free trial credits on new accounts platform.openai.com
+Sample questions the AI should answer correctly:
+- Which city has the highest total collection?
+- How many properties are rejected in Mumbai?
+- What percentage of Delhi properties are approved?
+- Which city has the most pending properties?
+- Compare total registrations between Pune and Jaipur.
+Scoring
+Component Max Points
+KPI dashboard (4 cards, correct values) 30
+Tenant filter (dropdown updates all KPIs) 15
+Comparison chart 10
+AI chat assistant 25
+Code quality and structure 10
+README and setup instructions 10
+Bonus — PostgreSQL or ElasticSearch backend +10
+Total 100 (+10)
+Shortlisting cutoff:
+70 and above Shortlisted for interview
+55 to 69 Manual review by hiring team
+Below 55 Not shortlisted
+No submission or project does not run Automatically rejected
+Page 3 | NUDM — UPYOG Platform | Intern Assessment 2026
+Page 4 | NUDM — UPYOG Platform | Intern Assessment 2025
+Submission Instructions
+1. Push your completed project to a public GitHub repository.
+2. Make sure properties.json is committed and your README.md includes setup steps.
+NUDM Intern Assessment 2025 — [Your Full Name]
+4. Deadline: [insert deadline]. Late submissions will not be reviewed.
+Important: Store your AI API key in a .env file and add .env to .gitignore. Never commit API keys to GitHub.
+Questions? Email [insert contact email]. We will respond within 24 hours.
+Good luck. We look forward to seeing what you build.
+— NUDM, UPYOG Platform
+3. Send your GitHub link and Screenshots to [insert HR email] with subject line:
