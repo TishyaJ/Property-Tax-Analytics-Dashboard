@@ -1,6 +1,3 @@
-/**
- * TenantFilter — dropdown for selecting a city (tenant) or "All Cities".
- */
 const TENANTS = [
     'All Cities',
     'Delhi', 'Mumbai', 'Pune', 'Bengaluru', 'Chennai',
@@ -10,17 +7,26 @@ const TENANTS = [
 export default function TenantFilter({ value, onChange }) {
     return (
         <div className="flex items-center gap-3">
-            <label htmlFor="tenant-select" className="text-sm font-semibold text-gray-600 whitespace-nowrap">
+            <label htmlFor="tenant-select" className="text-xs font-semibold uppercase tracking-wider whitespace-nowrap"
+                style={{ color: '#94a3b8' }}>
                 Filter by City
             </label>
             <select
                 id="tenant-select"
                 value={value}
                 onChange={e => onChange(e.target.value === 'All Cities' ? 'All' : e.target.value)}
-                className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="rounded-lg px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2"
+                style={{
+                    background: '#1e293b',
+                    border: '1px solid #334155',
+                    color: '#e2e8f0',
+                    focusRingColor: '#14b8a6',
+                }}
             >
                 {TENANTS.map(t => (
-                    <option key={t} value={t}>{t}</option>
+                    <option key={t} value={t} style={{ background: '#1e293b', color: '#e2e8f0' }}>
+                        {t}
+                    </option>
                 ))}
             </select>
         </div>
