@@ -10,7 +10,7 @@ NUDM Intern Assessment 2026 — Full-stack analytics dashboard for the UPYOG mul
 
 ![AI Chatbot](demo/Screenshot%202026-05-24%20004935.png)
 
-> Full walkthrough video: [`demo/YuvrajSingh_NUDM_Dashboard.mp4`](demo/YuvrajSingh_NUDM_Dashboard.mp4)
+> Full walkthrough video: [`demo/Demo.mp4`](demo/Demo.mp4)
 
 ---
 
@@ -41,7 +41,7 @@ NUDM Intern Assessment 2026 — Full-stack analytics dashboard for the UPYOG mul
 │   │   │   ├── KPICard.jsx        # Single metric card
 │   │   │   ├── TenantFilter.jsx   # City dropdown
 │   │   │   ├── ComparisonChart.jsx # Grouped bar chart (Chart.js)
-│   │   │   └── ChatWindow.jsx     # Gemini AI chatbot with guardrails
+│   │   │   └── ChatWindow.jsx     # Ensemble AI chatbot with guardrails
 │   │   ├── hooks/
 │   │   │   └── usePropertyData.js # Data fetching + local JSON fallback
 │   │   └── App.jsx                # Dashboard root
@@ -134,5 +134,5 @@ Open `http://localhost:5173` in your browser.
 
 ## Security
 
-- Gemini API key stored in `frontend/.env` (never committed — `.gitignore` enforced)
+- API keys stored in `frontend/.env` (never committed — `.gitignore` enforced)
 - CORS configured on the backend to allow frontend origin
