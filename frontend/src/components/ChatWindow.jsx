@@ -43,51 +43,39 @@ export default function ChatWindow() {
     }
 
     return (
-        <div className="rounded-2xl flex flex-col h-[420px]"
-            style={{ background: 'linear-gradient(135deg, #1e293b 0%, #162032 100%)', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+        <div className="bg-white rounded-2xl shadow-sm flex flex-col h-[420px]">
 
             {/* Header */}
-            <div className="px-5 py-3.5 flex items-center gap-2.5"
-                style={{ borderBottom: '1px solid #1e3a5f' }}>
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base"
-                    style={{ background: 'linear-gradient(135deg, #14b8a6, #0ea5e9)' }}>
-                    🤖
-                </div>
-                <span className="font-semibold text-sm text-white">UPYOG AI Assistant</span>
-                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-medium"
-                    style={{ background: 'rgba(20,184,166,0.15)', color: '#2dd4bf', border: '1px solid rgba(45,212,191,0.3)' }}>
+            <div className="px-5 py-3.5 border-b border-slate-100 flex items-center gap-2.5">
+                <span className="font-semibold text-sm text-slate-700">UPYOG AI Assistant</span>
+                <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-medium bg-indigo-50 text-indigo-600 border border-indigo-100">
                     {activeProvider}
                 </span>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3"
-                style={{ scrollbarWidth: 'thin', scrollbarColor: '#334155 transparent' }}>
+            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
                 {messages.map((msg, i) => (
                     <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
                         <div
-                            className="max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap"
-                            style={msg.role === 'user'
-                                ? { background: 'linear-gradient(135deg, #14b8a6, #0ea5e9)', color: '#fff', borderBottomRightRadius: '4px' }
-                                : { background: '#0f172a', color: '#cbd5e1', border: '1px solid #1e3a5f', borderBottomLeftRadius: '4px' }
-                            }
+                            className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${msg.role === 'user'
+                                ? 'bg-indigo-600 text-white rounded-br-sm'
+                                : 'bg-slate-100 text-slate-700 rounded-bl-sm'
+                                }`}
                         >
                             {msg.text}
                         </div>
                         {msg.role === 'assistant' && msg.provider && (
-                            <span className="text-[10px] mt-0.5 px-1" style={{ color: '#334155' }}>
-                                via {msg.provider}
-                            </span>
+                            <span className="text-[10px] text-slate-400 mt-0.5 px-1">via {msg.provider}</span>
                         )}
                     </div>
                 ))}
                 {loading && (
                     <div className="flex items-start">
-                        <div className="rounded-2xl px-4 py-2.5 text-sm flex gap-1.5 items-center"
-                            style={{ background: '#0f172a', border: '1px solid #1e3a5f', color: '#475569', borderBottomLeftRadius: '4px' }}>
-                            <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                            <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                            <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                        <div className="bg-slate-100 rounded-2xl rounded-bl-sm px-4 py-3 flex gap-1.5 items-center">
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '300ms' }} />
                         </div>
                     </div>
                 )}
@@ -95,7 +83,7 @@ export default function ChatWindow() {
             </div>
 
             {/* Input */}
-            <div className="px-4 py-3 flex gap-2" style={{ borderTop: '1px solid #1e3a5f' }}>
+            <div className="px-4 py-3 border-t border-slate-100 flex gap-2">
                 <input
                     type="text"
                     value={input}
@@ -104,19 +92,13 @@ export default function ChatWindow() {
                     placeholder="Ask about the property data…"
                     disabled={loading}
                     aria-label="Chat input"
-                    className="flex-1 rounded-xl px-3 py-2 text-sm focus:outline-none"
-                    style={{
-                        background: '#0f172a',
-                        border: '1px solid #334155',
-                        color: '#e2e8f0',
-                    }}
+                    className="flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
                 />
                 <button
                     onClick={send}
                     disabled={loading || !input.trim()}
                     aria-label="Send message"
-                    className="rounded-xl px-4 py-2 text-sm font-semibold transition-opacity disabled:opacity-40"
-                    style={{ background: 'linear-gradient(135deg, #14b8a6, #0ea5e9)', color: '#fff' }}
+                    className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white rounded-xl px-4 py-2 text-sm font-semibold transition-colors"
                 >
                     Send
                 </button>

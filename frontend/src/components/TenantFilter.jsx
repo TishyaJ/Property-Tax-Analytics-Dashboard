@@ -7,26 +7,17 @@ const TENANTS = [
 export default function TenantFilter({ value, onChange }) {
     return (
         <div className="flex items-center gap-3">
-            <label htmlFor="tenant-select" className="text-xs font-semibold uppercase tracking-wider whitespace-nowrap"
-                style={{ color: '#94a3b8' }}>
+            <label htmlFor="tenant-select" className="text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">
                 Filter by City
             </label>
             <select
                 id="tenant-select"
                 value={value}
                 onChange={e => onChange(e.target.value === 'All Cities' ? 'All' : e.target.value)}
-                className="rounded-lg px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2"
-                style={{
-                    background: '#1e293b',
-                    border: '1px solid #334155',
-                    color: '#e2e8f0',
-                    focusRingColor: '#14b8a6',
-                }}
+                className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
             >
                 {TENANTS.map(t => (
-                    <option key={t} value={t} style={{ background: '#1e293b', color: '#e2e8f0' }}>
-                        {t}
-                    </option>
+                    <option key={t} value={t}>{t}</option>
                 ))}
             </select>
         </div>
