@@ -1,52 +1,45 @@
-"""
-Repository Pattern — abstracts data source behind a common interface.
-Toggle via DATA_SOURCE env var: "json" | "elasticsearch" | "postgres"
-"""
 import json
 import os
 from pathlib import Path
 from typing import Optional
 
-DATA_SOURCE = os.getenv("DATA_SOURCE", "json")
-JSON_DATA_PATH = os.getenv("JSON_DATA_PATH", "properties.json")
-# Resolve path relative to this file's directory
-_BASE_DIR = Path(__file__).parent
+DATABASE_URL = os.getenv("DATABASE_URL")
+ES_HOST      = os.getenv("ES_HOST")
+JSON_PATH    = Path(__file__).parent / os.getenv("JSON_DATA_PATH", "properties.json")
 
 
-def _load_json() -> list[dict]:
-    path = (_BASE_DIR / JSON_DATA_PATH).resolve()
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+def _load_postgres() -> list[dict]:
+    import psycopg2
+    import psycopg2.extras
+
+    conn = psycopg2.connect(DATABASE_URL)
+    try:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute("SELECT * FROM properties;")
+            return [dict(row) for row in cur.fetchall()]
+    finally:
+        conn.close()
 
 
 def _load_elasticsearch() -> list[dict]:
-    """Stub — replace with real ES client when ES_HOST is configured."""
-    from elasticsearch import Elasticsearch  # type: ignore
+    from elasticsearch import Elasticsearch
 
-    es = Elasticsearch(os.getenv("ES_HOST", "http://localhost:9200"))
+    es = Elasticsearch(ES_HOST)
     index = os.getenv("ES_INDEX", "properties")
     resp = es.search(index=index, body={"query": {"match_all": {}}, "size": 10000})
     return [hit["_source"] for hit in resp["hits"]["hits"]]
 
 
-def _load_postgres() -> list[dict]:
-    """Stub — replace with real psycopg2/asyncpg query when DATABASE_URL is set."""
-    import psycopg2  # type: ignore
-    import psycopg2.extras
-
-    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
-    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-    cur.execute("SELECT * FROM properties;")
-    rows = cur.fetchall()
-    conn.close()
-    return [dict(r) for r in rows]
+def _load_json() -> list[dict]:
+    with open(JSON_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
 def get_all_records() -> list[dict]:
-    if DATA_SOURCE == "elasticsearch":
-        return _load_elasticsearch()
-    if DATA_SOURCE == "postgres":
+    if DATABASE_URL:
         return _load_postgres()
+    if ES_HOST:
+        return _load_elasticsearch()
     return _load_json()
 
 

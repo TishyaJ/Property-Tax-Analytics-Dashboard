@@ -2,6 +2,18 @@
 
 NUDM Intern Assessment 2026 — Full-stack analytics dashboard for the UPYOG multi-tenant platform.
 
+## Demo
+
+![Dashboard Overview](demo/Screenshot%202026-05-24%20004833.png)
+
+![KPI Cards & Filter](demo/Screenshot%202026-05-24%20004900.png)
+
+![AI Chatbot](demo/Screenshot%202026-05-24%20004935.png)
+
+> Full walkthrough video: [`demo/YuvrajSingh_NUDM_Dashboard.mp4`](demo/YuvrajSingh_NUDM_Dashboard.mp4)
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -73,12 +85,18 @@ The API will be available at `http://localhost:8000`.
 | GET | `/api/chart-data` | Grouped bar data for all 10 cities |
 | GET | `/api/summary` | Text summary for the AI chatbot |
 
-**Optional — Switch data source** (create `backend/.env`):
+**Optional — connect to PostgreSQL or Elasticsearch** (create `backend/.env`):
 
 ```env
-# "json" (default) | "postgres" | "elasticsearch"
-DATA_SOURCE=json
+# PostgreSQL — set this to switch from JSON automatically
+DATABASE_URL=postgresql://user:password@localhost:5432/upyog
+
+# Elasticsearch — set this to switch from JSON automatically
+# ES_HOST=http://localhost:9200
+# ES_INDEX=properties
 ```
+
+If neither is set, the backend reads from `backend/properties.json` by default.
 
 ---
 
@@ -100,7 +118,7 @@ npm run dev
 
 Open `http://localhost:5173` in your browser.
 
-> **Note:** The frontend has a built-in fallback — if the backend is not running, it computes all KPIs and chart data directly from the local `public/properties.json`. The AI chatbot requires a valid Gemini API key.
+> **Note:** The frontend has a built-in fallback — if the backend is not running, it computes all KPIs and chart data directly from the local `public/properties.json`. The AI chatbot requires at least one valid API key in `frontend/.env` to let the ensemble of ai models give accuracy with less latency.
 
 ---
 
